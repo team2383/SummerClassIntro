@@ -24,11 +24,13 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
+  // DRIVETRAIN
   public static int rightMasterPort = 0;
   public static int rightFollowerPort = 1;
   public static int leftMasterPort = 2;
   public static int leftFollowerPort = 3;
 
+  // CLOCK SUBSYSTEM
   public static int clockPort = 4;
   
 }

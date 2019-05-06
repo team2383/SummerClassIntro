@@ -1,17 +1,13 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
-
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.Command;
 
 import java.util.function.DoubleSupplier;
 
 import frc.robot.commands.*;
 import frc.robot.ninjaLib.Gamepad;
 import frc.robot.subsystems.*;
-import frc.robot.HAL;
 
 
 
@@ -22,10 +18,8 @@ import frc.robot.HAL;
 
 public class OI {
   //// CREATING BUTTONS
-  // One type of button is a joystick button which is any button on a
-  //// joystick.
-  // You create one by telling it which joystick it's on and which button
-  // number it is.
+  // One type of button is a joystick button which is any button on a joystick.
+  // You create one by telling it which joystick it's on and which button number it is.
   // Joystick stick = new Joystick(port);
   // Button button = new JoystickButton(stick, buttonNumber);
 
@@ -65,6 +59,8 @@ public class OI {
   public static Button six = new JoystickButton(driver, Gamepad.BUTTON_A);
   public static Button nine = new JoystickButton(driver, Gamepad.BUTTON_X);
 
+  // Above all you've done is given a name to the button.
+  // Below is where you will tell that button what to do.
   public OI(){
   twelve.whenPressed(new SetClock(Clock.ClockPreset.TWELVE));
   }

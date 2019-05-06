@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import java.util.function.DoubleSupplier;
 import frc.robot.HAL;
 import frc.robot.subsystems.Clock.ClockPreset;
 
