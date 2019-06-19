@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -47,21 +48,29 @@ public class OI {
   // XBOX CONTROLLER //
   /////////////////////
 
-  public static Gamepad driver = new Gamepad(0);
+  // Define the name of the controller and the port which it is assinged to
+  public static Gamepad driver = new Gamepad(7);
+  //public static Joystick clockJS = new Joystick(1);
   
   // DRIVE
-  public static DoubleSupplier turn = () -> (driver.getRightX());
-  public static DoubleSupplier throttle = () -> (driver.getLeftY()); 
+  public static DoubleSupplier turn = () -> (driver.getRightX() * 0.001);
+  public static DoubleSupplier throttle = () -> (driver.getLeftY() * 0.01); 
+  public static DoubleSupplier clockManual = () -> (driver.getLeftTrigger() * 0.1);
+  //public static DoubleSupplier clockManualBack = () -> (driver.getRightTrigger());
 
   // CLOCK CONTROLS
-  public static Button twelve = new JoystickButton(driver, Gamepad.BUTTON_Y);
-  public static Button three = new JoystickButton(driver, Gamepad.BUTTON_B);
+  //public static DoubleSupplier clock = () -> clockJS.getY(); 
+  public static Button twelve = new JoystickButton(driver, Gamepad.BUTTON_A);
+  public static Button three = new JoystickButton(driver, Gamepad.BUTTON_A);
   public static Button six = new JoystickButton(driver, Gamepad.BUTTON_A);
-  public static Button nine = new JoystickButton(driver, Gamepad.BUTTON_X);
+  public static Button nine = new JoystickButton(driver, Gamepad.BUTTON_A);
 
   // Above all you've done is given a name to the button.
   // Below is where you will tell that button what to do.
   public OI(){
-  twelve.whenPressed(new SetClock(Clock.ClockPreset.TWELVE));
+  twelve.whenPressed(new SetClock(Clock.ClockPreset.YES));
+  three.whenPressed(new SetClock(Clock.ClockPreset.PRESET));
+  six.whenPressed(new SetClock(Clock.ClockPreset.FOUR));
+  nine.whenPressed(new SetClock(Clock.ClockPreset.SIX));
   }
 }

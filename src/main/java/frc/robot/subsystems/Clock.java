@@ -7,20 +7,24 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.*;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
+import frc.robot.OI;
 import frc.robot.RobotMap;
+import frc.robot.commands.*;
 
 public class Clock extends Subsystem {
 
-  public TalonSRX clock = new TalonSRX(RobotMap.clockPort);
+  public TalonSRX clock = new TalonSRX(10);
   
   // Create preset positions with a name and a corresponding encoder value
   // These preset names are used in OI
   public static enum ClockPreset{
     TWELVE(0),
-    THREE(20),
-    SIX(40),
-    NINE(60);
+    THREE(1000),
+    SIX(2000),
+    NINE(3000);
 
     public double clockPosition;
     private ClockPreset(double clockPosition) {
@@ -30,17 +34,17 @@ public class Clock extends Subsystem {
 
   // Configures PID values, sets velocity & acceleration, determines in what direction is positive for the encoders
   public void configMotorController(int timeout){
-    clock.config_kP(0, 4, timeout);
+    clock.config_kP(0, 1, timeout);
     clock.config_kI(0, 0, timeout);
-    clock.config_kD(0, 55, timeout);
-    clock.config_kF(0, 4.55, timeout);
-    clock.config_IntegralZone(0, 0, timeout);
+    clock.config_kD(0, 0, timeout);
+    clock.config_kF(0, 0, timeout);
+    //clock.config_IntegralZone(0, 0, timeout);
   
-    clock.configMotionAcceleration(300, timeout); //was 400
-    clock.configMotionCruiseVelocity(200, timeout); //was 400
+    clock.configMotionAcceleration(200, timeout);
+    clock.configMotionCruiseVelocity(800, timeout); // 100 ticks per 100 ms or 1000 ticks per second
     clock.setNeutralMode(NeutralMode.Brake);
   
-    clock.setSensorPhase(true);
+    clock.setSensorPhase(false);
     clock.setInverted(false);
   
     clock.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, timeout);
@@ -53,18 +57,24 @@ public class Clock extends Subsystem {
 
   // Set the default command for a subsystem here. 
   @Override
-  public void initDefaultCommand() {   
+  public void initDefaultCommand() {  
+    setDefaultCommand(new SetClock(OI.clockManual));
   }
 
   // Able to return values and read them off of Shuffleboard or the SmartDashboard
   public void periodic(){
-    SmartDashboard.putNumber("Clock pos", getCurrentPosition());
+    SmartDashboard.putNumber("Current Clock Position", getCurrentPosition());
+    //SmartDashboard.putNumber("Desired Clock Position", clock.getClosedLoopTarget());
   }
 
   // Method that will return the clock's current position
   public int getCurrentPosition() {
     return clock.getSelectedSensorPosition(0);
   }
+
+  // public double getDesiredPosition(){
+  //   return clock.getClosedLoopTarget();
+  // }
 
   // Method that will set the position of the clock to a given position
   public void setPosition(ClockPreset position){
