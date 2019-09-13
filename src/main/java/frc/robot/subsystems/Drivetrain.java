@@ -14,16 +14,21 @@ public class Drivetrain extends Subsystem {
 
   DifferentialDrive drive;
 
-  public WPI_TalonSRX rightMaster = new WPI_TalonSRX(RobotMap.rightMasterPort);
-  TalonSRX rightFollower = new TalonSRX(RobotMap.rightFollowerPort);
-  public WPI_TalonSRX leftMaster = new WPI_TalonSRX(RobotMap.rightMasterPort);
-  TalonSRX leftFollower = new TalonSRX(RobotMap.rightMasterPort);
+  public WPI_TalonSRX rightMaster = new WPI_TalonSRX(1);
+  TalonSRX rightFollower = new TalonSRX(2);
+  public WPI_TalonSRX leftMaster = new WPI_TalonSRX(3);
+  TalonSRX leftFollower = new TalonSRX(4);
 
   public Drivetrain (){
 
     rightFollower.follow(rightMaster);
-    leftFollow.follow(leftMaster);
-    drive = new DifferentialDrive(right, right);
+    leftFollower.follow(leftMaster);
+    drive = new DifferentialDrive(leftMaster, rightMaster);
+
+    leftMaster.setInverted(false);
+    rightMaster.setInverted(false);
+    leftFollower.setInverted(false);
+    rightFollower.setInverted(false);
   }
 
   public void arcade(double move, double turn){

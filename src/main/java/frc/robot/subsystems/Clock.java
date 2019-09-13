@@ -58,7 +58,7 @@ public class Clock extends Subsystem {
   // Set the default command for a subsystem here. 
   @Override
   public void initDefaultCommand() {  
-    setDefaultCommand(new SetClock(OI.clockManual));
+    // setDefaultCommand(new SetClock(OI.clockManual));
   }
 
   // Able to return values and read them off of Shuffleboard or the SmartDashboard
